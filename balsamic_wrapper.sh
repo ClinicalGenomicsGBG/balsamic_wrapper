@@ -15,7 +15,7 @@ USAGE: [ -a <T|TN> -c _condaenv -m <run|config|all> -t <panel|WGS> -r ]
   -a [required] T: Tumor only, TN: tumor normal
   -c Conda environment where BALSAMIC is installed. If not specified, it will use current environment.
   -m [required] config: only create config file, run: create config file and start analysis
-  -t [required] twist_ffpe_exome Exomes for , GMS-ST: Twist GMS-ST panel, test_panel: target sequencing workflow (also includes WES), WGS: whole genome sequencing workflow
+  -t [required] twist_ffpe_exome Exomes for , GMS-ST: Twist GMS-ST panel, test_panel: target sequencing workflow (also includes WES), WGS: whole genome sequencing workflow, myeloid_panel: ST samples myeloid baits
   -o [required] outout path
   -d Analysis dir path, if it doesn't exist it will be created
   -r Flag. Set to submit jobs instead of running in dry mode
@@ -44,7 +44,7 @@ while getopts ":a:c:m:t:d:o:f:n:r" opt; do
     t)
       _ngstype=${OPTARG}
       echo "workflow set to " "${OPTARG}"
-      [[ $_ngstype == 'GMS-ST' || $_ngstype == 'twist_ffpe_exome' || $_ngstype == 'test_panel' || $_ngstype == 'WGS' ]] || ( usage >&2; exit 1)
+      [[ $_ngstype == 'GMS-ST' || $_ngstype == 'twist_ffpe_exome' || $_ngstype == 'test_panel' || $_ngstype == 'WGS' || $_ngstype == 'myeloid_panel' ]] || ( usage >&2; exit 1)
       ;;
     d)
       _analysis_dir=${OPTARG}
@@ -113,6 +113,8 @@ elif [[ ${_ngstype} == "GMS-ST" ]]; then
    _panel_option='-p /absolute/path/to/panel/bed/here'
 elif [[ ${_ngstype} == "test_panel" ]]; then 
    _panel_option='-p tests/test_data/references/panel/panel.bed'
+elif [[ ${_ngstype} == "myeloid_panel" ]]; then
+   _panel_option='-p /apps/bio/singularities/gms_hematology/bedfiles/all_targets_covered_by_probes_combined_sorted_merged_ann_padd6.bed'
 else
   _panel_option=''
 fi

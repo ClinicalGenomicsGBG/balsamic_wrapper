@@ -110,7 +110,7 @@ unset DISPLAY
 if [[ ${_ngstype} == "twist_ffpe_exome" ]]; then
    _panel_option='-p /medstore/Development/GMS_solid_tumor/balsamic/beds/Twist_Exome_Target_hg19.bed'
 elif [[ ${_ngstype} == "GMS-ST" ]]; then
-   _panel_option='-p /absolute/path/to/panel/bed/here'
+   _panel_option='-p /medstore/Development/GMS_solid_tumor/balsamic/beds/pool1_pool2_nochr_3c.sort.merged.hg19.210311.bed'
 elif [[ ${_ngstype} == "test_panel" ]]; then 
    _panel_option='-p tests/test_data/references/panel/panel.bed'
 elif [[ ${_ngstype} == "myeloid_panel" ]]; then
@@ -131,10 +131,10 @@ fi
 # Make sure _analysis_dir exists
 mkdir -p ${_analysis_dir}
 
-_prefix=/apps/bio/software/balsamic/BALSAMIC-6.0.0
+_prefix=/apps/bio/software/balsamic/BALSAMIC-7.1.8
 _genome_ver=hg19
 _cluster_config=${_prefix}/BALSAMIC/config/cluster.json
-_singularity=${_prefix}/BALSAMIC/containers/singularity/balsamic_release_v6.0.0
+_singularity=${_prefix}/BALSAMIC/containers/singularity/balsamic_release_v7.1.4
 #_reference=reference/${_genome_ver}/reference.json
 _reference=${_prefix}/BALSAMIC_reference/hg19/reference.json
 #_tumor_fastq=tests/test_data/fastq/S1_R_1.fastq.gz

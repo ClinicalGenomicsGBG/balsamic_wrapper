@@ -110,7 +110,7 @@ unset DISPLAY
 if [[ ${_ngstype} == "twist_ffpe_exome" ]]; then
    _panel_option='-p /medstore/Development/GMS_solid_tumor/balsamic/beds/Twist_Exome_Target_hg19.bed'
 elif [[ ${_ngstype} == "GMS-ST" ]]; then
-   _panel_option='-p /absolute/path/to/panel/bed/here'
+   _panel_option='-p /medstore/Development/GMS_solid_tumor/balsamic/beds/pool1_pool2_nochr_3c.sort.merged.hg19.210311.bed'
 elif [[ ${_ngstype} == "test_panel" ]]; then 
    _panel_option='-p tests/test_data/references/panel/panel.bed'
 elif [[ ${_ngstype} == "myeloid_panel" ]]; then

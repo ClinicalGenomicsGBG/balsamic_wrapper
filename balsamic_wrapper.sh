@@ -79,7 +79,7 @@ function balsamic_config() {
     ${_normal_option} \
     --case-id ${_analysis}_${_ngstype}_${t_samplename} \
     --analysis-dir ${_analysis_dir} \
-    -r ${_reference} \
+    --balsamic-cache ${_reference} \
     ${_panel_option} \
     --singularity ${_singularity} 
 }
@@ -136,7 +136,7 @@ _genome_ver=hg19
 _cluster_config=${_prefix}/BALSAMIC/config/cluster.json
 _singularity=${_prefix}/BALSAMIC/containers/singularity/balsamic_release_v7.1.4
 #_reference=reference/${_genome_ver}/reference.json
-_reference=/medstore/External_References/BALSAMIC_reference/7.1.8/hg19/reference.json
+_reference=/medstore/External_References/BALSAMIC_reference
 #_tumor_fastq=tests/test_data/fastq/S1_R_1.fastq.gz
 #_normal_fastq=tests/test_data/fastq/S2_R_1.fastq.gz
 _analysis_config=${_analysis_dir}'/'${_analysis}_${_ngstype}_${t_samplename}'/'${_analysis}_${_ngstype}_${t_samplename}'.json'

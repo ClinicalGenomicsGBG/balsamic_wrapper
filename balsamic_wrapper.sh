@@ -80,8 +80,8 @@ function balsamic_config() {
     --case-id ${_analysis}_${_ngstype}_${t_samplename} \
     --analysis-dir ${_analysis_dir} \
     --balsamic-cache ${_reference} \
-    ${_panel_option} \
-    --singularity ${_singularity} 
+    ${_panel_option} #\
+   # --singularity ${_singularity} 
 }
 
 # Function to run balsamic analysis

@@ -80,8 +80,8 @@ function balsamic_config() {
     --case-id ${_analysis}_${_ngstype}_${t_samplename} \
     --analysis-dir ${_analysis_dir} \
     --balsamic-cache ${_reference} \
-    ${_panel_option} \
-    --singularity ${_singularity} 
+    ${_panel_option} #\
+   # --singularity ${_singularity} 
 }
 
 # Function to run balsamic analysis
@@ -134,7 +134,7 @@ mkdir -p ${_analysis_dir}
 _prefix=/apps/bio/software/balsamic/BALSAMIC-7.1.8
 _genome_ver=hg19
 _cluster_config=${_prefix}/BALSAMIC/config/cluster.json
-_singularity=${_prefix}/BALSAMIC/containers/singularity/balsamic_release_v7.1.4
+#_singularity=${_prefix}/BALSAMIC/containers/singularity/balsamic_release_v7.1.4
 #_reference=reference/${_genome_ver}/reference.json
 _reference=/medstore/External_References/BALSAMIC_reference
 #_tumor_fastq=tests/test_data/fastq/S1_R_1.fastq.gz

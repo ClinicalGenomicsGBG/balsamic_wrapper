@@ -93,7 +93,8 @@ function balsamic_run() {
     --profile qsub \
     --account batch.q ${_run_analysis} \
     --disable-variant-caller manta,strelka,manta_germline,strelka_germline \
-    --snakemake-opt '--latency-wait 30'
+    --snakemake-opt '--latency-wait 30' \
+    --snakemake-opt '--debug'
 }
 
 # Function to check completeness

@@ -91,10 +91,11 @@ function balsamic_run() {
     -c ${_cluster_config} \
     --qos low \
     --profile qsub \
-    --account batch.q ${_run_analysis} \
+    --account production.q ${_run_analysis} \
     --disable-variant-caller manta,strelka,manta_germline,strelka_germline \
-    --snakemake-opt '--latency-wait 30' \
-    --snakemake-opt '--debug'
+    --snakemake-opt '--latency-wait 30' #\
+    #--snakemake-opt '--cores 1 --debug' #\
+    #--run-mode local
 }
 
 # Function to check completeness

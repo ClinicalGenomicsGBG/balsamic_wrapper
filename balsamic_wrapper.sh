@@ -8,6 +8,7 @@ _green=${_log}'\033[0;32m';
 _yellow=${_log}'\033[1;33m';
 _nocol='\033[0m';
 
+
 function usage() {
   echo $"
 USAGE: [ -a <T|TN> -c _condaenv -m <run|config|all> -t <panel|WGS> -r ]
@@ -71,6 +72,8 @@ while getopts ":a:c:m:t:d:o:f:n:r" opt; do
 done
 
 t_samplename=$(echo "$(basename ${_tumor_fastq})" | awk -F'_R_' '{print $1}')
+#singularityFolder=/medstore/External_References/BALSAMIC_reference/7.1.8/containers
+
 
 # Function to create config
 function balsamic_config() {
@@ -81,6 +84,8 @@ function balsamic_config() {
     --analysis-dir ${_analysis_dir} \
     --balsamic-cache ${_reference} \
     ${_panel_option} #\
+    #--snakemake-opt --use-singularity --singularity-prefix ${singularityFolder}\
+    #--snakemake-opt --singularity-args "-e --bind /medstore --bind /seqstore --bind /apps " #\
    # --singularity ${_singularity} 
 }
 
@@ -92,10 +97,15 @@ function balsamic_run() {
     --qos low \
     --profile qsub \
     --account production.q ${_run_analysis} \
-    --disable-variant-caller manta,strelka,manta_germline,strelka_germline \
-    --snakemake-opt '--latency-wait 30' #\
-    #--snakemake-opt '--cores 1 --debug' #\
-    #--run-mode local
+    --snakemake-opt '--latency-wait 30' \
+    #--snakemake-opt '--cores 1 --debug' \
+    #--run-mode local -r #\
+    #--snakemake-opt '--use-singularity' \
+    #--snakemake-opt '--singularity-args "-e --bind /medstore --bind /seqstore --bind /apps "' #\
+    #--snakemake-opt '--cleanenv'
+    #--disable-variant-caller manta,strelka,manta_germline,strelka_germline \
+    
+    
 }
 
 # Function to check completeness
@@ -105,7 +115,12 @@ function balsamic_endcheck() {
     -m
 }
 
+#module load anaconda2
 module load miniconda/4.8.3
+which balsamic
+#source activate S_BALSAMIC
+
+#set +u;  PATH=$PATH:/apps/bio/software/singularity/bin; set -u
 unset LD_PRELOAD
 unset DISPLAY
 
@@ -139,6 +154,7 @@ _cluster_config=${_prefix}/BALSAMIC/config/cluster.json
 #_singularity=${_prefix}/BALSAMIC/containers/singularity/balsamic_release_v7.1.4
 #_reference=reference/${_genome_ver}/reference.json
 _reference=/medstore/External_References/BALSAMIC_reference
+#_reference=/apps/bio/software/balsamic/BALSAMIC-7.1.8/BALSAMIC_reference/BALSAMIC_reference
 #_tumor_fastq=tests/test_data/fastq/S1_R_1.fastq.gz
 #_normal_fastq=tests/test_data/fastq/S2_R_1.fastq.gz
 _analysis_config=${_analysis_dir}'/'${_analysis}_${_ngstype}_${t_samplename}'/'${_analysis}_${_ngstype}_${t_samplename}'.json'
@@ -153,9 +169,9 @@ else
   _normal_option=" "
 fi
 
-#    --snakemake-opt --singularity-args \
-#    --snakemake-opt --cleanenv \
-
+    #--snakemake-opt --singularity-args \
+    #--snakemake-opt --cleanenv \
+set -x
 if [[ $_startmode == 'config' ]]; then
   balsamic_config
 elif [[ $_startmode == 'run' ]]; then

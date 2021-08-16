@@ -71,6 +71,16 @@ while getopts ":a:c:m:t:d:o:f:n:r" opt; do
   esac
 done
 
+
+wrapper_DIR="$(cd "$(dirname "$0")" && pwd)"
+#echo $wrapper_DIR
+#echo $wrapper_DIR/balsamic_renamer.py
+in_folder=$(dirname $_tumor_fastq)
+echo $in_folder
+python $wrapper_DIR/balsamic_renamer.py --infolder $in_folder
+
+_tumor_fastq=$(find $in_folder -name "*_R_1*")
+echo $_tumor_fastq
 t_samplename=$(echo "$(basename ${_tumor_fastq})" | awk -F'_R_' '{print $1}')
 #singularityFolder=/medstore/External_References/BALSAMIC_reference/7.1.8/containers
 
